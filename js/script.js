@@ -8,27 +8,37 @@ const numeroSorteio = document.getElementById('numeroSorteio');
 
 let sorteados = [], naoSorteados = [], desabilitados = [];
 
-btnSortear.addEventListener('click', () => animacao(sortear(1, NUMERO_DE_ALUNOS)));
+btnSortear.addEventListener('click', (event) => {
+  if (naoSorteados.length != desabilitados.length) {
+    event.target.disabled = true;
+    sortear();
+  };
+});
+
 btnResetar.addEventListener('click', resetar);
 
-function sortear(min, max) {
+function randomNumber(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+function sortear() {
   let sorteado;
   do {
-    sorteado = Math.round(Math.random() * (max - min) + min);
-  } while (!naoSorteados.includes(sorteado) && desabilitados.includes(sorteado));
-  return sorteado;
+    sorteado = randomNumber(1, NUMERO_DE_ALUNOS).toString();
+  } while (!naoSorteados.includes(sorteado) || desabilitados.includes(sorteado));
+  animacao(sorteado);
 }
 
 function animacao(sorteado) {
-  for (let i = 1; i <= naoSorteados.length; i++) {
+  for (let i = 1; i <= NUMERO_DE_ALUNOS; i++) {
     setTimeout(() => {
-      if (i === naoSorteados.length) {
+      if (i === NUMERO_DE_ALUNOS) {
         moverAluno(sorteado);
         imgSorteado.src = `alunos/${sorteado}.jpg`;
       } else {
-        imgSorteado.src = `alunos/${naoSorteados[i]}.jpg`;
+        imgSorteado.src = `alunos/${randomNumber(1, NUMERO_DE_ALUNOS)}.jpg`;
       }
-    }, Number(i / naoSorteados.length * 1500));
+    }, Math.pow(i, 3) / 5);
   }
 };
 
@@ -38,6 +48,7 @@ function moverAluno(aluno) {
   sorteados.push(aluno);
   buildSorteados();
   atualizarSorteio();
+  btnSortear.disabled = false;
 }
 
 function buildNaoSorteados() {
