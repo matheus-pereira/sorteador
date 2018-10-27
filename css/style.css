@@ -1,0 +1,84 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  /* padding: 10px 0; */
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.col-25 {
+  width: 25%;
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.container {
+	display: flex;
+	height: 100vh;
+}
+
+#sorteio {
+  flex-grow: 2;
+  padding: 0 20px;
+  text-align: center;
+}
+
+#sorteio img {
+  width: 300px;
+  padding: 20px;
+}
+
+#naoSorteados .avatar {
+  cursor: pointer;
+}
+
+.avatar {
+  border-radius: 5px;
+  max-width: 50px;
+  height: 72px;
+  margin: 3px;
+}
+
+.avatar.disabled {
+  filter: grayscale(100%);
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checkbox img {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+}
+
+button {
+  background-color: #009D4D;
+  border: none;
+  color: white;
+  padding: 15px 42px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+}
