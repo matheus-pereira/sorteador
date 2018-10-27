@@ -53,7 +53,7 @@ function moverAluno(aluno) {
 
 function buildNaoSorteados() {
   divNaoSorteados.innerHTML = naoSorteados.map(aluno => `
-      <img class="avatar ${validarDesabilitado(aluno)}" src="alunos/${aluno}.jpg" onclick="toggleImage(this)"></label>
+      <img class="avatar ${validarDesabilitado(aluno)}" src="alunos/${aluno}.jpg" onclick="toggleImage(this)">
   `).join('');
 }
 
@@ -64,7 +64,7 @@ function validarDesabilitado(aluno) {
 
 function buildSorteados() {
   divSorteados.innerHTML = sorteados.map(aluno => `
-      <img class="avatar" src="alunos/${aluno}.jpg"></label>
+      <img class="avatar" src="alunos/${aluno}.jpg">
   `).join('');
 }
 
