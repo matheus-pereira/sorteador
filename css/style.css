@@ -74,7 +74,7 @@ body, * {
   margin: auto;
   margin-bottom: 10px;
   border-radius: 5px;
-  height: calc(100vh - 135px);
+  height: calc(100vh - 145px);
 }
 .buttons {
   display: flex;
