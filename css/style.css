@@ -1,84 +1,100 @@
-body {
-  font-family: 'Roboto', sans-serif;
+body, * {
+  font-family: Poppins;
 }
 
-h1 {
-  font-size: 2.5em;
+/* navbar */
+.navbar {
+  background-color: #E64A05;
+}
+.navbar h1 {
+  color: #fff;
   font-weight: bold;
-  /* padding: 10px 0; */
+  font-size: 24px;
+  padding: 15px;
   text-align: center;
 }
 
-h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  padding: 10px 0;
-  text-align: center;
-}
-
-.col-25 {
-  width: 25%;
-}
-
-.col-50 {
-  width: 50%;
-}
-
+/* container */
 .container {
-	display: flex;
-	height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@media(min-width: 600px) {
+  .container {
+    flex-direction: row;
+    min-height: calc(100vh - 54px);
+  }
 }
 
-#sorteio {
-  flex-grow: 2;
-  padding: 0 20px;
-  text-align: center;
+/* side-bar */
+.side-bar {
+  background-color: #EAA889;
+  color: #fff;
 }
-
-#sorteio img {
-  width: 300px;
-  padding: 20px;
+.side-bar h2 {
+  padding: 15px;
+  padding-bottom: 0px;
 }
-
-#naoSorteados .avatar {
-  cursor: pointer;
-}
-
-.avatar {
+.side-bar img {
+  width: 9vh;
+  height: 14vh;
   border-radius: 5px;
-  max-width: 50px;
-  height: 72px;
   margin: 3px;
 }
-
-.avatar.disabled {
+.side-bar img.disabled {
   filter: grayscale(100%);
+  opacity: 0.5;
+}
+.side-bar section:first-child img {
+  cursor: pointer;
+}
+#sorteados, #naoSorteados {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media(min-width: 600px) {
+  .side-bar {
+    max-width: 50%;
+    flex-grow: 1;
+  }
+}
+@media(max-width: 600px) {
+  .side-bar {
+    order: 2;
+  }
 }
 
-.checkbox input {
-  display: none;
+/* content */
+.content {
+  flex-grow: 1;
 }
-
-.checkbox img {
-  width: 100%;
-  max-width: 100px;
-  height: auto;
+.content img {
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  height: calc(100vh - 135px);
 }
-
 .buttons {
   display: flex;
 }
-
-button {
-  background-color: #009D4D;
+.buttons button {
+  background-color: #EAA889;
   border: none;
   color: white;
-  padding: 15px 42px;
+  padding: 15px;
   width: 100%;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  margin: 5px;
+  margin: 10px;
+}
+.buttons button:first-child {
+  background-color: #E64A05;
+}
+#sorteado {
+  text-align: center;
 }

@@ -5,28 +5,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <link rel="stylesheet" href="css/style2.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
+  <div class="navbar">
+    <h1>Sorteio # <span id="sorteio"></span></h1>
+  </div>
   <div class="container">
-    <div class="col-25">
-      <h2>Não sorteados</h2>
-      <div id="naoSorteados"></div>
+    <div class="side-bar">
+      <section>
+        <h2>Participantes</h2>
+        <hr>
+        <div id="naoSorteados"></div>
+      </section>
+      <section>
+        <h2>Sorteados</h2>
+        <hr>
+        <div id="sorteados"></div>
+      </section>
     </div>
-    <div class="col-50" id="sorteio">
-      <h1 id="numeroSorteio">Sorteio #0</h1>
+    <div class="content">
       <div class="buttons">
-        <button id="btnSortear">Sortear</button>
-        <button id="btnResetar">Resetar</button>
+        <button onclick="sortear()">Sortear</button>
+        <button onclick="reset()">Reiniciar</button>
       </div>
-      <img id="imgSorteado" src="alunos/0.jpg" alt="Sorteado">
+      <div id="sorteado"></div>
     </div>
-    <div class="col-25">
-      <h2>Sorteados</h2>
-      <div id="sorteados"></div>
-    </div>
-  </div>  
+  </div>
   <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,71 +1,31 @@
 const NUMERO_DE_ALUNOS = 31;
-const divNaoSorteados = document.getElementById('naoSorteados');
-const divSorteados = document.getElementById('sorteados');
-const btnSortear = document.getElementById('btnSortear');
-const btnResetar = document.getElementById('btnResetar');
-const imgSorteado = document.getElementById('imgSorteado');
-const numeroSorteio = document.getElementById('numeroSorteio');
-
 let sorteados = [], naoSorteados = [], desabilitados = [];
-
-btnSortear.addEventListener('click', (event) => {
-  if (naoSorteados.length != desabilitados.length) {
-    event.target.disabled = true;
-    sortear();
-  };
-});
-
-btnResetar.addEventListener('click', resetar);
 
 function randomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
+function animacao(sorteado) {
+  let divSorteado = document.querySelector('#sorteado');
+  for (let i = 1; i <= NUMERO_DE_ALUNOS; i++) {
+    setTimeout(() => {
+      if (i === NUMERO_DE_ALUNOS) {
+        moverAluno(sorteado);
+        divSorteado.innerHTML = `<img src="alunos/${sorteado}.jpg" alt="Sorteado">`;
+      } else {
+        divSorteado.innerHTML = `<img src="alunos/${randomNumber(1, NUMERO_DE_ALUNOS)}.jpg" alt="Sorteado">`;
+      }
+    }, Math.pow(i, 2.6));
+  }
+};
+
 function sortear() {
+  if (naoSorteados.length === desabilitados.length) return;
   let sorteado;
   do {
     sorteado = randomNumber(1, NUMERO_DE_ALUNOS).toString();
   } while (!naoSorteados.includes(sorteado) || desabilitados.includes(sorteado));
   animacao(sorteado);
-}
-
-function animacao(sorteado) {
-  for (let i = 1; i <= NUMERO_DE_ALUNOS; i++) {
-    setTimeout(() => {
-      if (i === NUMERO_DE_ALUNOS) {
-        moverAluno(sorteado);
-        imgSorteado.src = `alunos/${sorteado}.jpg`;
-      } else {
-        imgSorteado.src = `alunos/${randomNumber(1, NUMERO_DE_ALUNOS)}.jpg`;
-      }
-    }, Math.pow(i, 3) / 5);
-  }
-};
-
-function moverAluno(aluno) {
-  naoSorteados.splice(naoSorteados.indexOf(aluno), 1);
-  buildNaoSorteados();
-  sorteados.push(aluno);
-  buildSorteados();
-  atualizarSorteio();
-  btnSortear.disabled = false;
-}
-
-function buildNaoSorteados() {
-  divNaoSorteados.innerHTML = naoSorteados.map(aluno => `
-      <img class="avatar ${validarDesabilitado(aluno)}" src="alunos/${aluno}.jpg" onclick="toggleImage(this)">
-  `).join('');
-}
-
-function validarDesabilitado(aluno) {
-  let disabled = desabilitados.includes(aluno) ? 'disabled' : '';
-  return disabled;
-}
-
-function buildSorteados() {
-  divSorteados.innerHTML = sorteados.map(aluno => `
-      <img class="avatar" src="alunos/${aluno}.jpg">
-  `).join('');
 }
 
 function toggleImage(element) {
@@ -74,19 +34,34 @@ function toggleImage(element) {
   (disabled) ? desabilitados.push(aluno) : desabilitados.splice(desabilitados.indexOf(aluno), 1);
 }
 
-function atualizarSorteio() {
-  numeroSorteio.innerHTML = `Sorteio #${sorteados.length}`;
+function renderizarNaoSorteados() {
+  let disabled = (aluno) => desabilitados.includes(aluno) ? 'disabled' : '';
+  document.querySelector('#naoSorteados').innerHTML = naoSorteados.map(aluno => `
+    <img class="${disabled(aluno)}" src="alunos/${aluno}.jpg" onclick="toggleImage(this)">
+  `).join('');
 }
 
-function resetar() {
-  sorteados = [];
-  naoSorteados = [];
-  desabilitados = [];
+function renderizarSorteados() {
+  document.querySelector('#sorteados').innerHTML = sorteados.map(aluno => `
+    <img class="avatar" src="alunos/${aluno}.jpg">
+  `).join('');
+}
+
+function moverAluno(aluno) {
+  naoSorteados.splice(naoSorteados.indexOf(aluno), 1);
+  sorteados.push(aluno);
+  renderizarNaoSorteados();
+  renderizarSorteados();
+  document.querySelector('#sorteio').innerHTML = sorteados.length;
+}
+
+function reset() {
+  sorteados = [], naoSorteados = [], desabilitados = [];
   for (let i = 1; i <= NUMERO_DE_ALUNOS; i++) naoSorteados.push(i.toString());
-  buildNaoSorteados();
-  imgSorteado.src = `alunos/0.jpg`;
-  divSorteados.innerHTML = '';
-  atualizarSorteio();
-}
+  renderizarNaoSorteados();
+  renderizarSorteados();
+  document.querySelector('#sorteado').innerHTML = `<img src="alunos/0.jpg" alt="Sorteado">`;
+  document.querySelector('#sorteio').innerHTML = '0';
+};
 
-resetar();
+reset();
